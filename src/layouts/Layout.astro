@@ -1,5 +1,8 @@
 ---
 import "@/styles/global.css";
+
+// components
+import Header from "@/components/common/Header.astro";
 ---
 
 <!-- 🌘 Handle theme preference and apply dark mode based on user settings or system preference -->
@@ -36,6 +39,8 @@ import "@/styles/global.css";
     <title>Astro Basics</title>
   </head>
   <body>
+    <Header />
+
     <slot />
   </body>
 </html>
