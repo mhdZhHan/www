@@ -1,0 +1,71 @@
+---
+import { Calendar, Clock4, Tag } from "lucide-astro";
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: string;
+  url: string;
+  tags?: readonly string[] | string[];
+}
+
+const { title, description, pubDate, url, tags = [] } = Astro.props;
+---
+
+<article
+  class="group relative w-full h-full bg-background border border-border rounded-lg p-4 hover:shadow-md hover:border-primary transition-all duration-200 flex flex-col space-y-3"
+>
+  <a
+    href={`/blog/${url}`}
+    class="flex flex-col space-y-3 flex-1"
+    aria-label={`${title}. ${description}`}
+  >
+    <div
+      class="flex items-center justify-between text-xs text-muted-foreground min-h-[1.5rem]"
+    >
+      <div class="flex items-center gap-1.5">
+        <Calendar size={12} class="shrink-0" aria-hidden />
+        <time datetime={pubDate} class="font-medium">{pubDate}</time>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        {
+          tags.length > 0 && (
+            <>
+              <Tag size={12} class="shrink-0" aria-hidden />
+              <span class="text-primary font-medium">{tags[0]}</span>
+              {tags.length > 1 && (
+                <span class="text-muted-foreground">+{tags.length - 1}</span>
+              )}
+            </>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h2
+      class="text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1"
+    >
+      {title}
+    </h2>
+
+    <!-- Description -->
+    <p class="text-sm text-muted-foreground line-clamp-2 flex-1">
+      {description}
+    </p>
+
+    <!-- Meta (Read Time) -->
+    <div
+      class="flex items-center gap-1.5 text-xs text-muted-foreground mt-auto"
+    >
+      <Clock4 size={12} class="shrink-0" aria-hidden />
+      <span>5 Min Read</span>
+    </div>
+  </a>
+
+  <!-- OSS Flair: Subtle Pulse Dot -->
+  <span
+    class="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+  ></span>
+</article>

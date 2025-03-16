@@ -1,12 +1,64 @@
 ---
-import CD from "@/components/common/CD.astro";
+import PageHeader from "@/components/common/PageHeader.astro";
 import Layout from "@/layouts/Layout.astro";
+import PostCard from "@/components/blog/PostCard.astro";
+
+// Mock data for blog posts
+const dummyPosts = [
+  {
+    title: "Hacking Astro with Bun",
+    description: "A wild ride into Astro’s internals with Bun’s speed.",
+    pubDate: "2025-03-16",
+    url: "hacking-astro-with-bun",
+    tags: ["astro", "bun", "oss"] as const,
+    post: {
+      render: async () => ({ remarkPluginFrontmatter: { readingTime: 5 } }),
+    },
+  },
+  {
+    title: "Open-Source Survival Guide",
+    description: "Tips and tricks from a seasoned OSS contributor.",
+    pubDate: "2025-03-14",
+    url: "oss-survival-guide",
+    tags: ["oss", "guide"] as const,
+    post: {
+      render: async () => ({ remarkPluginFrontmatter: { readingTime: 7 } }),
+    },
+  },
+  {
+    title: "Tailwind Hacks for Devs",
+    description: "Unleashing Tailwind’s power for rapid prototyping.",
+    pubDate: "2025-03-12",
+    url: "tailwind-hacks",
+    tags: ["tailwind", "dev"] as const,
+    post: {
+      render: async () => ({ remarkPluginFrontmatter: { readingTime: 4 } }),
+    },
+  },
+] as const;
 ---
 
-<Layout>
-  <div class="container">
-    <h1>Blog</h1>
+<Layout title="Mohammed's Blog | Posts">
+  <section class="wrapper">
+    <PageHeader
+      title="🧑‍🚀 Latest Blog Posts !"
+      subtitle="Explore the Cosmos of Ideas! Latest Blog Posts"
+    />
 
-    <CD />
-  </div>
+    <!-- Blog Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+      {
+        dummyPosts.map((post) => (
+          <div class="h-full">
+            <PostCard {...post} />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Placeholder for Pagination/Search -->
+    <div class="mt-12 text-center text-muted-foreground">
+      More features coming soon...
+    </div>
+  </section>
 </Layout>

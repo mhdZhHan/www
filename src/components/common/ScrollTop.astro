@@ -1,0 +1,37 @@
+---
+import { ArrowUp } from "lucide-astro";
+---
+
+<button
+  id="scrollTop"
+  class="fixed right-3 bottom-3 w-8 h-8 rounded-full flex items-center justify-center bg-transparent text-foreground hover:bg-secondary transition-all duration-500 ease-out opacity-0 pointer-events-none"
+  aria-label="Scroll to top"
+>
+  <ArrowUp size={16} class="shrink-0" />
+</button>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const scrollTopBtn = document.getElementById("scrollTop");
+
+    window.addEventListener("scroll", () => {
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      scrollTopBtn.classList.toggle(
+        "opacity-100 pointer-events-auto",
+        scrollTop > 300,
+      );
+      scrollTopBtn.classList.toggle(
+        "opacity-0 pointer-events-none",
+        scrollTop <= 300,
+      );
+    });
+
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  });
+</script>

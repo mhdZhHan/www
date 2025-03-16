@@ -119,3 +119,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.wrapper {
+  @apply container py-12 px-4 max-w-6xl mx-auto;
+}

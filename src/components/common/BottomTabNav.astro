@@ -1,0 +1,42 @@
+---
+import { Home, Book, Heart, User } from "lucide-astro";
+
+interface Tab {
+  name: string;
+  icon: any; // Icon component
+  href: string;
+}
+
+const tabs: Tab[] = [
+  { name: "Home", icon: Home, href: "/" },
+  { name: "Blog", icon: Book, href: "/blog" },
+  { name: "Favorites", icon: Heart, href: "/favorites" },
+  { name: "Profile", icon: User, href: "/profile" },
+];
+---
+
+<nav
+  class="fixed bottom-0 left-0 right-0 bg-background border-t border-border py-2 md:hidden"
+>
+  <ul class="flex justify-around items-center">
+    {
+      tabs.map((tab) => (
+        <li class="relative group">
+          <a
+            href={tab.href}
+            class="flex items-center justify-center p-3 text-muted-foreground hover:text-primary transition-colors"
+            aria-label={tab.name}
+          >
+            <tab.icon size={24} class="shrink-0" />
+            <span class="sr-only">{tab.name}</span>
+
+            {/* Tooltip */}
+            <span class="absolute bottom-14 bg-secondary text-foreground text-xs font-medium px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+              {tab.name}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

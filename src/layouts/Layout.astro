@@ -4,10 +4,14 @@ import "@/styles/global.css";
 // components
 import PlumTreeArt from "@/components/common/PlumTreeArt.astro";
 import Header from "@/components/common/Header.astro";
+import CD from "@/components/common/CD.astro";
+import Newsletter from "@/components/common/Newsletter.astro";
+import ScrollTop from "@/components/common/ScrollTop.astro";
+import BottomTabNav from "@/components/common/BottomTabNav.astro";
 ---
 
-<!-- 🌘 Handle theme preference and apply dark mode based on user settings or system preference -->
 <script is:inline>
+  // 🌘 Handle theme preference and apply dark/light mode based on user settings
   const getThemePreference = () => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme");
@@ -44,14 +48,12 @@ import Header from "@/components/common/Header.astro";
     <Header />
 
     <slot />
+
+    {Astro.url.pathname !== "/" && <CD class="container max-w-5xl mx-auto" />}
+
+    <Newsletter />
+    <ScrollTop />
+
+    <BottomTabNav />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
