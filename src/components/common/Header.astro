@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+// components
+import Tooltip from "../elements/Tooltip.astro";
+import ThemeToggle from "./ThemeToggle.tsx";
+
+import StarBoy from "../../assets/star-boy.svg";
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { path: "/", label: "solar:home-linear", tooltip: "Root" },
+  { path: "/blog", label: "solar:book-linear", tooltip: "Blog" },
+  { path: "/projects", label: "solar:code-linear", tooltip: "Projects" },
+  { path: "/about", label: "solar:user-linear", tooltip: "About" },
+  { path: "/donate", label: "solar:heart-linear", tooltip: "Donate" },
+  { path: "/lab", label: "solar:atom-linear", tooltip: "Lab" },
+] as const;
+---
+
+<header class="w-full select-none px-4 py-6 mx-auto max-w-5xl">
+  <div class="flex items-center justify-between flex-col gap-4 sm:flex-row">
+    <a href="/" aria-label="Header logo" class="flex items-center gap-2">
+      <Image
+        src={StarBoy}
+        alt="star-boy"
+        class="w-10 h-10 invert dark:invert-0"
+      />
+      <span
+        class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary"
+      >
+        Mohammed's Blog
+      </span>
+    </a>
+    <nav>
+      <ul
+        class="flex gap-2 p-1 bg-secondary rounded-full border border-border shadow-sm relative backdrop-blur-lg"
+      >
+        {
+          navItems.map(({ path, label, tooltip }, index) => (
+            <li class="relative group">
+              <a
+                href={path}
+                class={`flex items-center justify-center w-10 h-10 text-foreground transition-colors hover:text-primary ${currentPath === path ? "text-primary" : ""}`}
+                aria-label={`${tooltip} page`}
+              >
+                <Icon name={label} size={20} class="shrink-0" />
+                {currentPath === path && (
+                  <span class="absolute inset-0 rounded-full bg-primary/10 -z-10" />
+                )}
+                <Tooltip text={tooltip} />
+              </a>
+              {currentPath === path && (
+                <span
+                  class="absolute -bottom-px left-0 w-full h-px bg-primary glow"
+                  style={`clip-path: inset(0 ${index === 0 ? "80%" : index === navItems.length - 1 ? "0 80%" : "20%"} 0 ${index === navItems.length - 1 ? "80%" : "20%"});`}
+                />
+              )}
+            </li>
+          ))
+        }
+        <li><ThemeToggle client:load /></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .glow {
+    box-shadow: 0 0 4px 1px rgba(var(--primary-rgb), 0.5);
+  }
+</style>
