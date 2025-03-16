@@ -121,5 +121,5 @@
 }
 
 .wrapper {
-  @apply container py-12 px-4 max-w-6xl mx-auto;
+  @apply py-12 px-4 max-w-6xl mx-auto;
 }
