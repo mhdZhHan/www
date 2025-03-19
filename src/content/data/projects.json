@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Inkspire Blogging Platform",
+    "description": "A full-fledged blogging platform built with the MERN stack.",
+    "url": "https://inkspire-demo.com",
+    "githubUrl": "https://github.com/mhdZhHan/inkspire",
+    "tags": ["MERN", "Blogging"],
+    "technologies": [
+      { "id": "mongodb", "name": "MongoDB", "icon": "skill-icons:mongodb" },
+      {
+        "id": "express",
+        "name": "Express.js",
+        "icon": "skill-icons:express-dark"
+      },
+      { "id": "react", "name": "React", "icon": "skill-icons:react-dark" },
+      { "id": "nodejs", "name": "Node.js", "icon": "skill-icons:nodejs-dark" },
+      { "id": "aws", "name": "AWS S3", "icon": "skill-icons:aws-dark" }
+    ],
+    "featured": true
+  },
+  {
+    "title": "Advanced MERN Authentication",
+    "description": "A secure authentication system with email verification and password reset.",
+    "url": "https://mern-auth-demo.com",
+    "githubUrl": "https://github.com/mhdZhHan/mern-auth",
+    "tags": ["MERN", "Authentication"],
+    "technologies": [
+      { "id": "mongodb", "name": "MongoDB", "icon": "skill-icons:mongodb" },
+      {
+        "id": "express",
+        "name": "Express.js",
+        "icon": "skill-icons:express-dark"
+      },
+      { "id": "react", "name": "React", "icon": "skill-icons:react-dark" },
+      { "id": "nodejs", "name": "Node.js", "icon": "skill-icons:nodejs-dark" },
+      {
+        "id": "tailwind",
+        "name": "Tailwind CSS",
+        "icon": "skill-icons:tailwindcss-dark"
+      }
+    ],
+    "featured": false
+  }
+]
