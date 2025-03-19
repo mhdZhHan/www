@@ -1,0 +1,240 @@
+---
+title: Building My Personal Arch Linux With KDE Plasma Setup from Scratch 🛠️
+draft: false
+pubDate: 2024-08-21
+description: "My personal Arch Linux setup from scratch. Learn how to update your system, install key tools, fix screen gamma issues with ICC profiles, and personalize your Plasma desktop environment"
+author: "Mohammed"
+image: "/images/blogs/computer-desk-workstation.jpg"
+tags: ["arch linux", "linux", "kde"]
+---
+
+import Blockquote from "@components/widgets/Blockquote.astro"
+
+After a successful Arch Linux installation and the first reboot, it's time to start setting things up! Here's how I began transforming my fresh Arch installation into a functional and personalized environment.
+
+## First Things First: Update Your System
+Right after booting into my new Arch Linux system, I made sure everything was up to date. It's a simple yet crucial step:
+
+```bash
+sudo pacman -Syyu
+```
+This command updates the package database and upgrades all installed packages to the latest version.
+
+## Essential Packages: Git and Development Tools
+Next, I needed some essential tools to get started. I installed `git` for version control and `base-devel`, which includes essential development tools:
+
+```bash
+sudo pacman -S --needed git base-devel
+```
+
+With `git` installed, I configured my name and email for version control:
+```bash
+git config --global user.name "Mohammed"
+git config --global user.email "hello@example.com"
+```
+
+## Installing Essential Utilities
+
+To enhance the functionality of my system and prepare it for daily use, I installed some essential utilities. These tools cover power management, file viewing, and compatibility with various file systems. Here's the command to install them:
+
+```bash
+sudo pacman -S power-profiles-daemon ntfs-3g exfatprogs linux-headers
+```
+
+### What Do These Packages Do?
+
+- **Power Profiles Daemon**: A utility to manage power profiles for better energy efficiency or performance.
+- **NTFS-3G**: A driver for full read and write support for NTFS file systems, commonly used in Windows.
+- **exfatprogs**: Utilities for handling exFAT file systems, often used in USB drives and SD cards.
+- **Linux Headers**: Required for building kernel modules, such as drivers for specific hardware.
+
+> With these tools, my system is equipped to handle a wide range of tasks, from multimedia playback to file compatibility and power optimization.
+
+## Enable and Configure the Firewall
+
+Securing a system with a properly configured firewall is a critical step in maintaining its safety. This guide explains how to set up UFW (Uncomplicated Firewall) on Arch Linux efficiently.
+
+### Install and Enable UFW
+
+1. Install UFW using **pacman**:
+   ```bash
+   sudo pacman -S ufw
+   ```
+
+2. Enable and start UFW to ensure it activates on boot:
+   ```bash
+   sudo systemctl enable ufw.service
+   sudo systemctl start ufw.service
+   ```
+
+### Recommended Firewall Rules
+
+Apply the following rules to balance security and functionality:
+
+```bash
+sudo ufw limit 22/tcp            # Limit SSH attempts to prevent brute force
+sudo ufw allow 80/tcp            # Allow HTTP traffic
+sudo ufw allow 443/tcp           # Allow HTTPS traffic
+sudo ufw default deny incoming   # Block all incoming traffic by default
+sudo ufw default allow outgoing  # Allow all outgoing traffic
+sudo ufw enable                  # Enable the firewall
+```
+
+To check the status and rules:
+```bash
+sudo ufw status
+```
+
+## Installing Yay: The AUR Helper
+To easily manage and install AUR (Arch User Repository) packages, I decided to install `yay`, a handy AUR helper. But before jumping into that, I created a special directory for all my development tools—my secret stash, if you will.
+
+First, I set up a `"Developer"` directory. Why? Well, it's a great habit to keep all your personal building tools and projects organized. I also use this directory to store other development environments like Golang, Flutter, and more. Think of it as your project's headquarters—keeping everything tidy and in one place makes life so much easier.
+
+
+Here’s how I did it:
+```bash
+mkdir Developer
+cd Developer
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+And just like that, yay was installed. I checked the installation with:
+```bash
+yay --version
+```
+For more about yay, check out its [GitHub page](https://github.com/Jguer/yay).
+
+## Enabling Bluetooth: The Missing Link
+Sometimes, after installing Arch Linux, you might notice that the Bluetooth option is mysteriously missing. But don't worry—it's a quick fix!
+
+Just run these commands to enable and start Bluetooth:
+
+```bash
+sudo systemctl enable bluetooth
+sudo systemctl start bluetooth
+```
+
+And that’s it, baby, that’s it! 😄
+
+> **Note**: If this doesn't work, there might be a problem with your Bluetooth configuration or you may not have installed the driver. Google it and find a solution, brother. You've got this!
+
+## Setting Up ICC Profiles: Fixing Screen Gamma Issues
+
+Sometimes, after installing Arch Linux—or even other Linux distributions—you might notice that your screen's gamma is off, causing colors to look incorrect or washed out. This isn’t necessarily an Arch Linux-specific problem; it can happen on other distros as well. It could be due to driver issues or BIOS settings, but a common solution is to use ICC profiles to correct the gamma.
+
+I faced this issue on my system and, after some research, discovered that ICC profiles could help. I don’t know much more about the technical details, but applying an ICC profile improved the color accuracy on my screen.
+
+Here’s what I did:
+
+1. **Download ICC Profiles**: I found a set of ICC profiles that work well for my setup. You can download them from my GitHub repository: [ICC Profiles](https://github.com/mhdZhHan/dotfiles/tree/main/gamma-icc).
+
+2. **Apply the ICC Profile**: Follow the instructions for your desktop environment to apply the ICC profile. Usually, this involves using a color management tool to load and set the profile.
+
+And that’s it! The colors on my screen look great now, and I’m much happier with the display quality.
+
+> **Note**: If you’re experiencing similar issues, give ICC profiles a try. They can often resolve color and gamma problems. If you don't have such issues, you can skip this section.
+
+Now, let’s move on to customizing our Plasma desktop to make it truly ours!
+
+## Customizing My Plasma Desktop: Making It Truly Mine
+
+Now that we've got the basics down, let's make our Arch Linux setup uniquely ours with some cool Plasma customizations. Here’s how I turned my desktop into a sleek workspace:
+
+### 1. Customizing the Plasma Panels
+
+My desktop looks like: 
+
+![Buraq Home](/images/blogs/buraq-home.jpg "Buraq home")
+
+**1. Install Plasma Widgets:**
+
+- [KMenu Wrap](https://store.kde.org/p/2154894)
+- [Window Title Applet 6 Wrap](https://www.pling.com/p/2129423/)
+- [Simple Separator for Plasma 6](https://www.pling.com/p/2137418/)
+- [CatWalk](https://www.pling.com/p/2137844/)
+- [Compact Pager](https://www.pling.com/p/2112443/)
+
+**2. Add the Applet Configuration File**
+
+Download my applet configuration file from [My GitHub - appletarc](https://github.com/mhdZhHan/dotfiles/blob/main/.config/plasma-org.kde.plasma.desktop-appletsrc) and place it inside your `.config` directory.
+
+This file configures the panels to look just like mine. Cool, right?
+
+### 2. Removing Title Bars with KWin Rules
+
+I’m not a fan of title bars cluttering my view, so I removed them using KWin rules. Here’s how you can do it too:
+
+**1. Download My KWin Rules:**
+Get the KWin rules file from my GitHub: [buraq-kwin-rules.kwinrule](https://github.com/mhdZhHan/dotfiles/blob/main/buraq-kwin-rules.kwinrule)
+
+**2. Add the KWin Rule:**
+Go to `Settings > Window Management > Window Rules`.
+Click `Import` and select the downloaded `.kwinrule` file.
+
+<Blockquote title="Fun Fact" type="info">
+My system name is Buraq 😄. It’s a cool name, don’t you think?
+</Blockquote>
+
+### 3. Icon Pack Customization
+
+To give my desktop a cohesive and stylish look, I’m using the [**GruvBox Icon Theme**](https://store.kde.org/p/1327720). It adds a unique touch to the icons on my system.
+
+Here’s how my desktop looks with this icon pack: 
+
+![GruvBox Icon Theme](/images/blogs/buraq-icon-theme.jpg "GruvBox Icon Theme")
+
+### 4. Customizing the Terminal
+
+My terminal setup is another area I’ve customized to fit my style. For details on how I’ve tailored my terminal with Oh My Zsh and more, check out my previous blog post [**Customizing the Terminal with Oh My Zsh**](/blog/2024-08-21-ultimate-guide-to-setting-up-zsh-with-oh-my-zsh-and-powerlevel10k-for-a-stunning-terminal).
+
+Here’s a glimpse of how my terminal looks:
+
+![Buraq Konsole](/images/blogs/buraq-konsole.jpg "Buraq Konsole")
+
+With these customizations, my Arch Linux setup is truly unique and reflects my personal style. I hope you found these tips helpful!
+
+Feel free to tweak and adjust these settings to match your preferences. Enjoy your newly customized Plasma desktop!
+
+## Accessing My Dotfiles: Wallpapers and Configurations
+
+If you want to replicate my setup, including the wallpapers and other custom configurations, you can download them from my GitHub repository:
+
+[Buraq Dotfiles](https://github.com/mhdZhHan/dotfiles)
+
+This repository contains everything you need to make your Arch Linux setup look just like mine. Feel free to explore and use the files to personalize your own system!
+
+## The Tools of My Trade: Essential Software and Tools
+
+Now that you’ve seen how I’ve customized my Arch Linux setup, you might be wondering what software and tools I rely on for my daily work. Here’s a peek into my toolkit:
+
+### Essential Software
+
+- [**VSCodium**](https://vscodium.com/): My go-to code editor for a clean and customizable coding experience.
+- [**Firefox**](https://www.mozilla.org/en-US/firefox/new/): My preferred browser for its privacy features and extensive add-ons.
+- [**Chromium**](https://www.chromium.org/): The open-source browser that powers Google Chrome.
+- [**Inkscape**](https://inkscape.org/): A powerful vector graphics editor for all my design needs.
+- [**Spectacle**](https://apps.kde.org/en/spectacle): The tool for taking screenshots in my desktop environment.
+- [**Gwenview**](https://apps.kde.org/en/gwenview): My image viewer for quickly browsing through photos.
+- [**VLC**](https://www.videolan.org/vlc/): A versatile media player that handles almost any file format.
+- [**Android Studio**](https://developer.android.com/studio): The IDE I use for Android app development.
+
+### Development Tools
+
+For development, I use the following tools and languages:
+
+- [**nvm (Node Version Manager)**](https://github.com/nvm-sh/nvm): For managing multiple Node.js versions effortlessly.
+- [**Node.js**](https://nodejs.org/): The JavaScript runtime I use for server-side scripting.
+- [**Yarn**](https://yarnpkg.com/): A fast and reliable package manager for managing dependencies.
+- [**Java**](https://www.oracle.com/java/): Essential for Java-based projects and applications.
+- [**Rust**](https://www.rust-lang.org/): A systems programming language that’s fast and memory-efficient.
+- [**Golang**](https://golang.org/): Used for building scalable and high-performance applications.
+- [**MongoDB**](https://www.mongodb.com/): A NoSQL database for managing flexible and scalable data.
+- [**MySQL**](https://www.mysql.com/): A robust relational database management system.
+- [**Redis**](https://redis.io/): An in-memory data structure store used as a database, cache, and message broker.
+
+These tools and software are integral to my workflow, making my Arch Linux setup not only functional but also tailored to my needs. If you have any questions about these tools or need recommendations, feel free to reach out!
+
+And that’s a wrap on my personal Arch Linux setup from scratch! I hope you found this guide helpful and inspiring. Happy customizing! 😄
+
