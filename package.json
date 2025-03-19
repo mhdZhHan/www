@@ -37,6 +37,10 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
-    "@iconify-json/solar": "^1.2.2"
+    "@iconify-json/emojione": "^1.2.1",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/skill-icons": "^1.2.0",
+    "@iconify-json/solar": "^1.2.2",
+    "@tailwindcss/typography": "^0.5.16"
   }
 }

@@ -35,6 +35,36 @@ const dummyPosts = [
       render: async () => ({ remarkPluginFrontmatter: { readingTime: 4 } }),
     },
   },
+  {
+    title: "Mastering JavaScript",
+    description: "Advanced techniques and patterns for JavaScript developers.",
+    pubDate: "2025-03-10",
+    url: "mastering-javascript",
+    tags: ["javascript", "advanced"] as const,
+    post: {
+      render: async () => ({ remarkPluginFrontmatter: { readingTime: 6 } }),
+    },
+  },
+  {
+    title: "CSS Grid Layouts",
+    description: "Creating complex layouts with CSS Grid.",
+    pubDate: "2025-03-08",
+    url: "css-grid-layouts",
+    tags: ["css", "grid"] as const,
+    post: {
+      render: async () => ({ remarkPluginFrontmatter: { readingTime: 5 } }),
+    },
+  },
+  {
+    title: "CSS Grid Layouts",
+    description: "Creating complex layouts with CSS Grid.",
+    pubDate: "2025-03-08",
+    url: "css-grid-layouts",
+    tags: ["css", "grid"] as const,
+    post: {
+      render: async () => ({ remarkPluginFrontmatter: { readingTime: 5 } }),
+    },
+  },
 ] as const;
 ---
 
@@ -46,11 +76,22 @@ const dummyPosts = [
     />
 
     <!-- Blog Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+    <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
       {
         dummyPosts.map((post) => (
           <div class="h-full">
             <PostCard {...post} />
+          </div>
+        ))
+      }
+    </div> -->
+
+    <!-- Blog Columns -->
+    <div class="columns-1 md:columns-2 lg:columns-3 gap-6 mt-8">
+      {
+        dummyPosts.map((post) => (
+          <div class="break-inside-avoid mb-6">
+            <PostCard {...post} class="w-auto h-auto" />
           </div>
         ))
       }

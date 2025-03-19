@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -122,4 +123,20 @@
 
 .wrapper {
   @apply py-12 px-4 max-w-6xl mx-auto;
+}
+
+table {
+  @apply w-full;
+}
+
+tr {
+  @apply last:border-b last:border-border;
+}
+
+th {
+  @apply border-y border-border bg-secondary px-2 py-0.5 text-left font-medium first:pl-4 last:pr-4;
+}
+
+td {
+  @apply px-2 py-0.5 first:pl-4 last:pr-4;
 }

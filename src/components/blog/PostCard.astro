@@ -1,19 +1,31 @@
 ---
 import { Calendar, Clock4, Tag } from "lucide-astro";
+import { cn } from "@/lib/utils";
 
-interface Props {
+type Props = {
   title: string;
   description: string;
   pubDate: string;
   url: string;
   tags?: readonly string[] | string[];
-}
+  class?: string;
+};
 
-const { title, description, pubDate, url, tags = [] } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  url,
+  tags = [],
+  class: className,
+} = Astro.props;
 ---
 
 <article
-  class="group relative w-full h-full bg-background border border-border rounded-lg p-4 hover:shadow-md hover:border-primary transition-all duration-200 flex flex-col space-y-3"
+  class={cn(
+    "group relative w-full h-full bg-background border border-border rounded-lg p-4 hover:shadow-md hover:border-primary transition-all duration-200 flex flex-col space-y-3",
+    className,
+  )}
 >
   <a
     href={`/blog/${url}`}
@@ -66,6 +78,6 @@ const { title, description, pubDate, url, tags = [] } = Astro.props;
 
   <!-- OSS Flair: Subtle Pulse Dot -->
   <span
-    class="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+    class="absolute top-2 right-2 w-1.5 h-1.5 bg-accent-foreground rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-200"
   ></span>
 </article>

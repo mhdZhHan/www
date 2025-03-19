@@ -1,9 +1,10 @@
 ---
 import { Home, Book, Heart, User } from "lucide-astro";
+import type { LucideIcon } from "@/types";
 
 interface Tab {
   name: string;
-  icon: any; // Icon component
+  icon: LucideIcon; // Icon component
   href: string;
 }
 
@@ -16,7 +17,7 @@ const tabs: Tab[] = [
 ---
 
 <nav
-  class="fixed bottom-0 left-0 right-0 bg-background border-t border-border py-2 md:hidden"
+  class="fixed bottom-0 left-0 right-0 bg-transparent border-t border-border py-2 md:hidden backdrop-blur-xl transition-all rounded-2xl"
 >
   <ul class="flex justify-around items-center">
     {

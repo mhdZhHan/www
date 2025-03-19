@@ -1,13 +1,30 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 
 // components
 import SectionTitle from "@/components/common/SectionTitle.astro";
 import PostCard from "@/components/blog/PostCard.astro";
+import LetterGlitch from "@/components/effects/LetterGlitch";
+import SkillsList from "@/components/effects/SKillsList";
+import LogoWall from "@/components/effects/LogoWall.astro";
+
+const technologies = [
+  "astro",
+  "react",
+  "typescript",
+  "tailwindcss",
+  "nodejs",
+  "bun",
+  "rust",
+  "deno",
+  "linux",
+  "arch",
+  "nextjs",
+];
 ---
 
 <Layout>
-  <div class="container max-w-5xl mx-auto py-8">
+  <div class="wrapper space-y-6">
     <SectionTitle title="Latest" highlight="Posts" url="/blog" />
 
     <PostCard
@@ -16,6 +33,19 @@ import PostCard from "@/components/blog/PostCard.astro";
       pubDate="2021-10-01"
       url="how-to-build-a-blog-with-astro"
       tags={["astro", "bun", "oss"]}
+    />
+
+    <LogoWall technologies={technologies} />
+
+    <SkillsList />
+
+    <LetterGlitch
+      client:load
+      glitchColors={["#5e4491", "#A476FF", "#241a38"]}
+      glitchSpeed={33}
+      centerVignette={false}
+      outerVignette={true}
+      smooth={true}
     />
   </div>
 </Layout>

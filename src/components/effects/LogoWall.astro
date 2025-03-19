@@ -1,0 +1,108 @@
+---
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  technologies: string[];
+};
+
+const { technologies } = Astro.props;
+
+const techIconMap: { [key: string]: string } = {
+  astro: "skill-icons:astro",
+  react: "skill-icons:react-dark",
+  typescript: "skill-icons:typescript",
+  tailwindcss: "skill-icons:tailwindcss-dark",
+  nodejs: "skill-icons:nodejs-dark",
+  html5: "skill-icons:html5",
+  css3: "skill-icons:css3",
+  javascript: "skill-icons:javascript",
+  git: "skill-icons:git",
+  mysql: "skill-icons:mysql",
+  bash: "skill-icons:bash",
+  nextjs: "skill-icons:nextjs-light",
+  express: "skill-icons:express-dark",
+  bun: "skill-icons:bun-dark",
+  linux: "skill-icons:linux-light",
+  arch: "skill-icons:arch-light",
+  postgresql: "skill-icons:postgresql-dark",
+  mongodb: "skill-icons:mongodb",
+  deno: "skill-icons:deno-light",
+  rust: "skill-icons:rust",
+};
+
+// Duplicate the array for a seamless loop (3x for smooth scrolling)
+const techList = [...technologies, ...technologies, ...technologies];
+---
+
+<section class="py-8 overflow-x-clip">
+  <div
+    class="flex overflow-clip"
+    style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);"
+  >
+    <div
+      class="flex animate-scroll w-max"
+      role="marquee"
+      aria-label="Scrolling technology icons"
+    >
+      {
+        techList.map((tech) => (
+          <div class="flex items-center gap-3 group transition-all duration-300 px-4 py-2">
+            <span class="inline-flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+              <Icon
+                name={
+                  techIconMap[tech.toLowerCase()] ||
+                  `skill-icons:${tech.toLowerCase()}`
+                }
+                width="32"
+                height="32"
+                class="text-muted-foreground group-hover:text-primary transition-colors duration-300"
+              />
+            </span>
+            <span class="text-base md:text-lg font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+              {tech.charAt(0).toUpperCase() + tech.slice(1)}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const marquee = document.querySelector('[role="marquee"]');
+
+  if (marquee) {
+    marquee.addEventListener("mouseenter", () => {
+      marquee.classList.add("animate-paused");
+    });
+    marquee.addEventListener("mouseleave", () => {
+      marquee.classList.remove("animate-paused");
+    });
+  }
+</script>
+
+<style is:global>
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-33.333%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 40s linear infinite;
+    transition: animation-play-state 0.3s ease;
+  }
+
+  .animate-paused {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 768px) {
+    .animate-scroll {
+      animation-duration: 30s;
+    }
+  }
+</style>

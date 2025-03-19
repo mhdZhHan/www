@@ -8,11 +8,21 @@ const { title, subtitle } = Astro.props;
 ---
 
 <div class="text-center space-y-3 mb-8">
-  <h1 class="text-3xl sm:text-4xl font-bold text-foreground">
-    {title}
-  </h1>
+  <div class="flex items-center justify-center gap-3">
+    <!-- Left Line -->
+    <div class="flex-1 max-w-[100px] border-t border-border"></div>
 
-  <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-    {subtitle}
-  </p>
+    <!-- Title and Subtitle -->
+    <div class="flex flex-col items-center">
+      <h1 class="text-2xl sm:text-3xl font-bold text-foreground">
+        {title}
+      </h1>
+      <p class="text-lg text-muted-foreground">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Right Line -->
+    <div class="flex-1 max-w-[100px] border-t border-border"></div>
+  </div>
 </div>

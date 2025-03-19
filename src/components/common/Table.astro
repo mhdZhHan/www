@@ -1,0 +1,113 @@
+---
+import { Calendar } from "lucide-astro";
+
+interface ColumnSpec {
+  id: string;
+  name?: string;
+  isExpanding?: boolean;
+}
+
+interface RowData {
+  [key: string]: any;
+}
+
+interface Row {
+  data: RowData;
+  url?: string;
+  isLastSibling?: boolean;
+  groupId?: string | number;
+}
+
+interface Props {
+  columns: ColumnSpec[];
+  data: Row[];
+}
+
+const { columns, data } = Astro.props;
+const columnIds = columns.map((column) => column.id);
+---
+
+<!-- Desktop: Table Layout -->
+<div class="hidden md:block">
+  <table border="1px" class="w-full transition">
+    <thead class="bg-muted text-foreground">
+      <tr>
+        {
+          columns.map((column: ColumnSpec) => (
+            <th
+              class:list={[{ "w-px whitespace-nowrap": !column.isExpanding }]}
+            >
+              {column.name ?? column.id}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        data.map((row: Row) => (
+          <tr
+            class="translate-x-0 transition clip-0 after:absolute after:inset-y-0 after:start-0 after:bg-peach hover:bg-muted"
+            class:list={{
+              "border-b-2 border-muted": row.isLastSibling,
+            }}
+          >
+            {Object.entries(row.data)
+              .filter(([key]) => columnIds.includes(key))
+              .sort(([a], [b]) => columnIds.indexOf(a) - columnIds.indexOf(b))
+              .map(([key, value]) => (
+                <td
+                  class:list={{
+                    "w-px whitespace-nowrap":
+                      !columns[columnIds.indexOf(key)]?.isExpanding,
+                  }}
+                >
+                  {value}
+                </td>
+              ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Mobile: Card Layout -->
+<div class="md:hidden space-y-4">
+  {
+    data.map((row: Row) => (
+      <div class="border border-border rounded-lg p-4 bg-background">
+        {Object.entries(row.data)
+          .filter(([key]) => columnIds.includes(key))
+          .sort(([a], [b]) => columnIds.indexOf(a) - columnIds.indexOf(b))
+          .map(([key, value]) => (
+            <div class="flex items-start gap-2 py-1">
+              <span class="font-medium text-muted-foreground w-24 shrink-0">
+                {columns[columnIds.indexOf(key)].name ?? key}:
+              </span>
+              <span class="flex-1">
+                {key === "name" && row.url ? (
+                  <a href={row.url} class="text-primary hover:underline">
+                    {value}
+                  </a>
+                ) : key === "tech" && Array.isArray(value) ? (
+                  <ul class="flex flex-wrap gap-2">
+                    {value.map((tech: { id: string; name: string }) => (
+                      <li class="flex items-center gap-1">
+                        <Calendar size={16} class="text-muted-foreground" />
+                        <span>{tech.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : key === "org" || key === "epic" ? (
+                  <span>{value?.name || value}</span>
+                ) : (
+                  value
+                )}
+              </span>
+            </div>
+          ))}
+      </div>
+    ))
+  }
+</div>
