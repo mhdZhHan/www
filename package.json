@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "create-post": "bun scripts/create-post.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",
